@@ -45,6 +45,12 @@
         .copy-button:hover {
             background-color: #218838;
         }
+        #notification {
+            margin-top: 10px;
+            color: green;
+            font-size: 1rem;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -54,6 +60,7 @@
         <div id="output">Clique para gerar!</div>
         <button onclick="gerarAleatorio()">Gerar</button>
         <button class="copy-button" onclick="copiarTexto()">Copiar</button>
+        <div id="notification">Texto copiado!</div>
     </div>
 
     <script>
@@ -65,7 +72,7 @@
                 const indice = Math.floor(Math.random() * caracteres.length);
                 resultado += caracteres.charAt(indice);
             }
-            resultado += '.html'; // Adiciona a extensão .html
+            resultado += '.html';
             document.getElementById('output').textContent = resultado;
         }
 
@@ -77,7 +84,13 @@
             textarea.select();
             document.execCommand('copy');
             document.body.removeChild(textarea);
-            alert('Texto copiado: ' + texto);
+
+            // Exibe a notificação de texto copiado
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000); // Oculta a notificação após 2 segundos
         }
     </script>
 
