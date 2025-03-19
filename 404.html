@@ -20,15 +20,17 @@
             font-size: 18px;
             margin-bottom: 30px;
         }
-        a {
+        .btn {
+            display: inline-block;
             text-decoration: none;
             background-color: #007bff;
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
             font-size: 18px;
+            margin-bottom: 10px;
         }
-        a:hover {
+        .btn:hover {
             background-color: #0056b3;
         }
     </style>
@@ -36,6 +38,11 @@
 <body>
     <h1>JOSE STATUS 404</h1>
     <p>Oops! A página que você procura não foi encontrada.</p>
-    <a href="https://sites.google.com/view/jose-status-yt">Voltar para a Página Inicial</a>
+    
+    <a href="https://sites.google.com/view/jose-status-yt" class="btn">Voltar para a Página Inicial</a>
+    
+    <p>OU</p>
+    
+    <a href="#" class="btn" onclick="location.reload(); return false;">Atualizar a Página</a>
 </body>
 </html>
