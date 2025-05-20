@@ -1,141 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8" />
-<title>Gerador de Link Estilizado</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f2f5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
-    color: #333;
-  }
-  h2 {
-    margin-bottom: 25px;
-  }
-  .container {
-    background: white;
-    padding: 30px 40px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 420px;
-    text-align: center;
-  }
-  input[type="text"] {
-    width: 100%;
-    padding: 12px 15px;
-    font-size: 18px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    transition: border-color 0.3s ease;
-  }
-  input[type="text"]:focus {
-    border-color: #3b82f6;
-    outline: none;
-  }
-  .link-box {
-    margin-top: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #eef4ff;
-    padding: 12px 18px;
-    border-radius: 8px;
-    word-break: break-all;
-  }
-  .link-box a {
-    color: #2563eb;
-    font-weight: 600;
-    text-decoration: none;
-    flex: 1;
-  }
-  button.copy-btn {
-    margin-left: 12px;
-    background: #2563eb;
-    border: none;
-    color: white;
-    font-weight: 600;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.25s ease;
-    user-select: none;
-  }
-  button.copy-btn:hover {
-    background: #1e40af;
-  }
-  button.copy-btn:active {
-    background: #1a3a92;
-  }
-  .hidden {
-    display: none;
-  }
-  .msg-copied {
-    margin-top: 12px;
-    font-size: 14px;
-    color: #16a34a;
-    font-weight: 600;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .msg-copied.visible {
-    opacity: 1;
-  }
-</style>
+    <link rel="icon" href="jose.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <title>Gerador de Redirecionamento para Blogger</title>
+    <link rel="stylesheet" href="blogger-2.css">
 </head>
+
 <body>
+    <h1>Gerador de Código para Redirecionamento no Blogger</h1>
+    <label for="link">Digite o link de destino:</label>
+    <input type="text" id="link" placeholder="https://seublog.blogspot.com/pagina.html">
 
-<div class="container">
-  <h2>Gerador de Link para site</h2>
-  <input type="text" id="inputText" placeholder="Ex: **********-jsy" autocomplete="off" />
+    <button onclick="gerarCodigo()">Gerar Código</button>
 
-  <div id="linkContainer" class="link-box hidden">
-    <a href="#" target="_blank" id="generatedLink"></a>
-    <button class="copy-btn" id="copyBtn">Copiar</button>
-  </div>
+    <label for="codigo">Código gerado (copie e cole no Blogger):</label>
+    <textarea id="codigo" readonly></textarea>
 
-  <div class="msg-copied" id="msgCopied">Link copiado!</div>
-</div>
-
-<script>
-  const input = document.getElementById('inputText');
-  const linkContainer = document.getElementById('linkContainer');
-  const generatedLink = document.getElementById('generatedLink');
-  const copyBtn = document.getElementById('copyBtn');
-  const msgCopied = document.getElementById('msgCopied');
-
-  input.addEventListener('input', () => {
-    const valor = input.value.trim();
-
-    if (valor) {
-      const url = `https://link-jsy.blogspot.com/p/${encodeURIComponent(valor)}.html`;
-      generatedLink.href = url;
-      generatedLink.textContent = url;
-      linkContainer.classList.remove('hidden');
-      msgCopied.classList.remove('visible');
-    } else {
-      linkContainer.classList.add('hidden');
-      msgCopied.classList.remove('visible');
-    }
-  });
-
-  copyBtn.addEventListener('click', () => {
-    if (!generatedLink.href) return;
-
-    navigator.clipboard.writeText(generatedLink.href).then(() => {
-      msgCopied.classList.add('visible');
-      setTimeout(() => {
-        msgCopied.classList.remove('visible');
-      }, 2000);
-    }).catch(() => {
-      alert('Não foi possível copiar o link. Tente manualmente.');
-    });
-  });
-</script>
-
+    <script src="blogger-2.js"></script>
 </body>
+
 </html>
