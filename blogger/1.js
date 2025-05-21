@@ -58,3 +58,13 @@ function gerarCodigo() {
   const codigo = partes.join('\n');
   document.getElementById("codigo").value = codigo;
 }
+
+function copiarCodigo() {
+  const textarea = document.getElementById("codigo");
+  textarea.select();
+  textarea.setSelectionRange(0, 99999); // compatível com mobile
+
+  document.execCommand("copy");
+  // alert("Código copiado com sucesso!"); // Removido!
+}
+

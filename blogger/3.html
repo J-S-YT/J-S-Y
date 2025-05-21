@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Gerador de Link Estilizado</title>
+    <link rel="icon" href="jose.ico" type="image/x-icon">
+    <link rel="stylesheet" href="3.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Gerador de Link para site</h2>
+        <input type="text" id="inputText" placeholder="Ex: **********-jsy" autocomplete="off" />
+
+        <div id="linkContainer" class="link-box hidden">
+            <a href="#" target="_blank" id="generatedLink"></a>
+            <button class="copy-btn" id="copyBtn">Copiar</button>
+        </div>
+
+        <div class="msg-copied" id="msgCopied">Link copiado!</div>
+    </div>
+
+    <script src="3.js"></script>
+</body>
+
+</html>
