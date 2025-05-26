@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Dados dinâmicos -->
+<title id="page-title">JSY Anime</title>
+<link id="favicon" rel="icon" href="https://j-s-an.github.io/anime/jose.ico" type="image/x-icon">
+<meta property="og:title" id="og-title" content="JSY Anime">
+<meta property="og:image" id="og-image" content="https://cdn.myanimelist.net/images/anime/1819/97947l.jpg">
+<meta property="og:url" content="https://bit.ly/JSY-ANIME">
+<meta property="og:type" content="website">
+
+<style>
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #121212;
+        color: white;
+    }
+    .menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #1a1a1a;
+        padding: 10px 20px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    .logo {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ff4757;
+    }
+    .menu-links {
+        display: flex;
+        list-style: none;
+        gap: 15px;
+        margin: 0;
+        padding: 0;
+    }
+    .menu-links li a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 14px;
+        transition: color 0.3s;
+    }
+    .menu-links li a:hover {
+        color: #1dd1a1;
+    }
+    .menu-toggle {
+        display: none;
+        font-size: 26px;
+        color: #fff;
+        cursor: pointer;
+    }
+    @media (max-width: 768px) {
+        .menu-toggle { display: block; }
+        .menu-links {
+            display: none;
+            flex-direction: column;
+            background-color: #1a1a1a;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 160px;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #000;
+        }
+        .menu-links.active { display: flex; }
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 20px auto;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 25px;
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .anime-info {
+        flex: 1;
+        min-width: 250px;
+        text-align: center;
+    }
+    .anime-info img {
+        max-width: 100%;
+        border-radius: 10px;
+    }
+    .details {
+        flex: 2;
+        min-width: 280px;
+    }
+    h1 {
+        color: #00aaff;
+        margin-top: 0;
+    }
+    .details p { margin: 5px 0; }
+    .details b { color: #ddd; }
+    a {
+        color: #00aaff;
+        text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+
+    .buttons-top, .buttons-bottom {
+        margin-top: 20px;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    .buttons-bottom { margin-top: 10px; }
+
+    .buttons-top button,
+    .buttons-bottom a {
+        padding: 10px 25px;
+        border: none;
+        border-radius: 10px;
+        background-color: transparent;
+        border: 2px solid #00aaff;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 15px;
+        box-shadow: 0 0 10px #00aaff;
+        transition: 0.3s;
+        text-decoration: none;
+        text-align: center;
+        flex: 1 1 150px;
+    }
+    .buttons-top button:hover,
+    .buttons-bottom a:hover {
+        background-color: #00aaff;
+        color: black;
+        transform: translateY(-2px);
+        box-shadow: 0 0 20px #00aaff;
+    }
+
+    .popup {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(8px);
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
+    .popup-content {
+        background-color: #1f1f1f;
+        padding: 20px;
+        border-radius: 15px;
+        max-width: 800px;
+        width: 90%;
+        position: relative;
+        box-shadow: 0 0 20px #00aaff;
+    }
+    .popup-content iframe {
+        width: 100%;
+        height: 400px;
+        border-radius: 10px;
+    }
+    .popup-content h2 {
+        margin-top: 0;
+        color: #00aaff;
+    }
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        color: white;
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        .container { flex-direction: column; align-items: center; text-align: center; }
+        .details { text-align: left; }
+        .popup-content iframe { height: 250px; }
+    }
+    @media (max-width: 500px) {
+        h1 { font-size: 22px; }
+        .buttons-top button,
+        .buttons-bottom a { padding: 8px 15px; font-size: 14px; }
+    }
+    #disqus_thread {
+  max-width: 800px;    /* Largura máxima da área dos comentários */
+  margin: 40px auto;   /* Centraliza horizontalmente com margem em cima e embaixo */
+  padding: 10px;
+  background-color: #1f1f1f; /* Fundo escuro combinando com seu tema */
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Header com Menu -->
+<header>
+    <nav class="menu">
+        <div class="logo">JSY ANIME</div>
+        <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+        <ul class="menu-links" id="menu-links">
+            <li><a href="https://sites.google.com/view/jose-status-anime/Inicio">Início</a></li>
+            <li><a href="https://j-s-an.github.io/anime/lista-anime.html">Lista de Anime</a></li>
+            <li><a href="https://j-s-an.github.io/anime/Lançamentos.html">Lançamentos</a></li>
+            <li><a href="https://sites.google.com/view/jose-status-anime/Pedido-de-Anime">Pedido de Anime</a></li>
+            <li><a href="https://forms.gle/9xpodxVW71nXcjAG9">Contato</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Conteúdo da Página -->
+<div class="container">
+    <div class="anime-info">
+        <img id="anime-img" src="https://cdn.myanimelist.net/images/anime/1819/97947l.jpg" alt="5-toubun no Hanayome">
+    </div>
+    <div class="details">
+        <h1 id="anime-title">5-toubun no Hanayome</h1>
+        <p><b>Tipo:</b> TV</p>
+        <p><b>Episódios:</b> 12</p>
+        <p><b>Estúdio:</b> Tezuka Productions</p>
+        <p><b>Fonte:</b> Mangá</p>
+        <p><b>Gêneros:</b> Comédia, Romance</p>
+        <p><b>Tema:</b> Escolar</p>
+        <p><b>Classificação:</b> PG-13</p>
+        <p><a href="https://myanimelist.net/anime/38101" target="_blank">Ver no MyAnimeList</a></p>
+
+        <div class="buttons-top">
+            <button onclick="openPopup('trailer-popup')">Trailer</button>
+            <button onclick="openPopup('sinopse-popup')">Sinopse</button>
+        </div>
+
+        <div class="buttons-bottom">
+            <a href="#" target="_blank">Anime Legendado</a>
+            <a href="#" target="_blank">Anime Dublado</a>
+        </div>
+    </div>
+</div>
+
+<!-- Seção Disqus -->
+<div id="disqus_thread" style="max-width: 1100px; margin: 40px auto;"></div>
+<script>
+    /**
+     * RECOMENDADO: defina as variáveis abaixo dinamicamente, se possível, 
+     * para associar os comentários à página/anime correta.
+     */
+    var disqus_config = function () {
+        this.page.url = window.location.href;  // URL da página atual
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://teste-jsy.disqus.com/embed.js'; // <== Substitua 'jsyanime' pelo seu shortname do Disqus
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Por favor, ative o JavaScript para ver os <a href="https://disqus.com/?ref_noscript" rel="nofollow">comentários do Disqus.</a></noscript>
+
+<!-- Pop-ups -->
+<div id="trailer-popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('trailer-popup')">&times;</span>
+        <iframe src="https://www.youtube.com/embed/Qv7N5b0Po3Q" allowfullscreen></iframe>
+    </div>
+</div>
+
+<div id="sinopse-popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup('sinopse-popup')">&times;</span>
+        <h2>Sinopse</h2>
+        <p>Fuutarou Uesugi é um excelente aluno, mas leva uma vida difícil. Sua personalidade antissocial e sua situação financeira fazem com que ele viva isolado. Um dia, ele consegue um emprego como tutor de cinco irmãs que têm notas terríveis e odeiam estudar. Agora, ele precisa fazer com que elas aprendam e consigam se formar, enquanto lida com as personalidades totalmente diferentes de cada uma.</p>
+    </div>
+</div>
+
+<script>
+
+    // Pop-ups
+    function openPopup(id) {
+        document.getElementById(id).style.display = 'flex';
+    }
+    function closePopup(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+
+    // Menu toggle
+    document.getElementById('menu-toggle').onclick = function () {
+        document.getElementById('menu-links').classList.toggle('active');
+    };
+</script>
+
+</body>
+</html>
