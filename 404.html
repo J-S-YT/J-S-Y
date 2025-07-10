@@ -1,48 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOSE STATUS 404</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSY 404</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #000000;
-            color: #ffffff;
-            padding: 50px;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
+        .container {
+            background-color: #111;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 123, 255, 0.5);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
         h1 {
             font-size: 48px;
             margin-bottom: 20px;
+            font-weight: bold;
+            color: #fff;
         }
+
         p {
             font-size: 18px;
+            color: #ccc;
             margin-bottom: 30px;
         }
+
         .btn {
             display: inline-block;
-            text-decoration: none;
             background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
             border-radius: 5px;
-            font-size: 18px;
-            margin-bottom: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
+
         .btn:hover {
             background-color: #0056b3;
         }
     </style>
+    <script>
+        // Atualiza a página a cada 5 segundos
+        setTimeout(() => {
+            location.reload();
+        }, 5000);
+
+        window.onload = function () {
+            const btn = document.getElementById("btnVoltar");
+            if (window.history.length <= 1) {
+                // Sem página anterior
+                btn.textContent = "Voltar para a Página Inicial";
+                btn.onclick = function () {
+                    window.location.href = "https://sites.google.com/view/jose-status-yt";
+                }
+            } else {
+                // Com página anterior
+                btn.textContent = "Voltar para a Página Anterior";
+                btn.onclick = function () {
+                    window.history.back();
+                }
+            }
+        }
+    </script>
 </head>
+
 <body>
-    <h1>JOSE STATUS 404</h1>
-    <p>Oops! A página que você procura não foi encontrada.</p>
-    
-    <a href="https://sites.google.com/view/jose-status-yt" class="btn">Voltar para a Página Inicial</a>
-    
-    <p>OU</p>
-    
-    <a href="#" class="btn" onclick="location.reload(); return false;">Atualizar a Página</a>
+    <div class="container">
+        <h1>JSY 404</h1>
+        <p>Oops! A página que você procura não foi encontrada.</p>
+        <button id="btnVoltar" class="btn">Voltar</button>
+    </div>
 </body>
+
 </html>
