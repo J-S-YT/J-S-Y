@@ -3,6 +3,6 @@
     <h2>Bem-vindo á JOSE STATUS YT</h2>
      <ul class="nav-list">
             <li><a href="https://sites.google.com/view/jose-status-yt/Inicio">JOSÉ STATUS YT</a></li>
-            <li><a href="https://sites.google.com/view/jose-status-anime/Inicio">JOSÉ STATUS ANIME</a></li>
+            <li><a href="https://sites.google.com/view/jsy-anime/Inicio">JOSÉ STATUS ANIME</a></li>
             <li><a href="https://sites.google.com/view/jose-status-musica/Inicio">JOSÉ STATUS MUSICA</a></li>
         </ul>
