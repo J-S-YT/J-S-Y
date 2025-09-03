@@ -1,85 +1,278 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>JSY Links</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</head>
-<body class="light">
-  <div class="theme-toggle">
-    <button onclick="toggleTheme()"><i id="themeIcon" class="fas fa-moon"></i></button>
-  </div>
-  <div class="tabs">
-    <button class="tab active" onclick="showProfile(0)">JSY</button>
-    <button class="tab" onclick="showProfile(1)">JSY ANIME</button>
-    <button class="tab" onclick="showProfile(2)">JSY MÚSICA</button>
-    <button class="tab" onclick="showProfile(3)">GAMER FILMES</button>
-  </div>
-
-  <div class="profile-container">
-    <div class="profile active">
-      <h1>JSY</h1>
-      <a href="https://example.com/jsy">Link</a>
-    </div>
-    <div class="profile">
-      <h1>JSY ANIME</h1>
-      <a href="https://example.com/anime">Link</a>
-    </div>
-    <div class="profile">
-      <h1>JSY MÚSICA</h1>
-      <a href="https://example.com/musica">Link</a>
-    </div>
-    <div class="profile">
-      <h1>GAMER FILMES</h1>
-      <a href="https://example.com/gamer">Link</a>
-    </div>
-  </div>
-
-  <script>
-    function toggleTheme() {
-      const body = document.body;
-      const icon = document.getElementById("themeIcon");
-      body.classList.toggle("dark");
-      body.classList.toggle("light");
-      icon.classList.toggle("fa-moon");
-      icon.classList.toggle("fa-sun");
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSY PERFIL</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(130deg, #111 0%, #222 100%);
+      color: white;
+      text-align: center;
     }
 
-    const perfilMap = {
-      'JSY': 0,
-      'JSY-ANIME': 1,
-      'JSY-MUSICA': 2,
-      'GAMER-FILMES': 3
-    };
-    const perfilList = ['JSY', 'JSY-ANIME', 'JSY-MUSICA', 'GAMER-FILMES'];
+    header {
+      padding: 20px 10px 10px;
+    }
 
-    function showProfile(index) {
-      const profiles = document.querySelectorAll('.profile');
-      const tabs = document.querySelectorAll('.tab');
-      profiles.forEach((p, i) => {
-        p.classList.toggle('active', i === index);
-        tabs[i].classList.toggle('active', i === index);
+    .perfil-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid white;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      margin: 0 0 5px;
+    }
+
+    .descricao {
+      font-size: 1em;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .redes-sociais {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .redes-sociais a {
+      color: white;
+      font-size: 1.5em;
+      text-decoration: none;
+    }
+
+    .sessao {
+      margin: 30px auto;
+      max-width: 320px;
+    }
+
+    .sessao h2 {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+    }
+
+    .botao {
+      display: block;
+      background: #333;
+      color: white;
+      border: 2px solid #666;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .botao:hover {
+      background: #555;
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img class="perfil-img" id="perfil-img" src="" alt="Foto de perfil">
+    <h1 id="perfil-nome">Perfil</h1>
+    <p class="descricao" id="perfil-desc"></p>
+    <div class="redes-sociais" id="perfil-redes"></div>
+  </header>
+  <div id="conteudo"></div>
+  <script>
+    const perfis = {
+      "JSY": {
+        nome: "JSY",
+        foto: "https://j-s-yt.github.io/J-S-Y/jose.ico",
+        descricao: "Bem-vindo ao perfil principal!",
+        redes: [
+          { icone: "fab fa-instagram", link: "https://instagram.com/jose_status_yt" },
+          { icone: "fab fa-youtube", link: "https://youtube.com/@JOSESTATUSYT" },
+          { icone: "fab fa-x", link: "https://x.com/JOSE_STATUS_YT" },
+          { icone: "fab fa-tiktok", link: "https://www.tiktok.com/@jose_status_yt" }
+        ],
+        secoes: [
+          {
+            titulo: "MAIS FUNÇÕES DO PERFIL",
+            botoes: [
+              { texto: "JSY", link: "https://heylink.me/Jose-Status-Yt/" },
+              { texto: "JSY ANIME", link: "#JSY-ANIME" },
+              { texto: "JSY MUSICA", link: "#JSY-MUSICA" },
+              { texto: "GAMER FILME", link: "#GAMER-FILMES" }
+            ]
+          },
+          {
+            titulo: "GRUPO OU CANAL DO JSY",
+            botoes: [
+              { texto: "DISCORD", link: "https://sites.google.com/view/jose-status-yt/discord" },
+              { texto: "WHATSAPP", link: "https://sites.google.com/view/jose-status-yt/whatsapp" },
+              { texto: "TELEGRAM", link: "https://sites.google.com/view/jose-status-yt/telegram" },
+              { texto: "GUILDED", link: "https://www.guilded.gg/i/2ODVJ9Nk" },
+              { texto: "ROBLOX", link: "https://www.roblox.com/pt/communities/15993883/JOSE-STATUS#!/about" },
+            ]
+          }
+        ]
+      },
+      "JSY-ANIME": {
+        nome: "JSY ANIME",
+        foto: "https://j-s-yt.github.io/J-S-Y/jose.ico",
+        descricao: "Tudo sobre animes, episódios e mais!",
+        redes: [
+          { icone: "fab fa-instagram", link: "https://instagram.com/jose_status_yt" },
+          { icone: "fab fa-youtube", link: "https://youtube.com/@JOSESTATUSYT" },
+          { icone: "fab fa-x", link: "https://x.com/JOSE_STATUS_YT" },
+          { icone: "fab fa-tiktok", link: "https://www.tiktok.com/@jose_status_anime" }
+        ],
+        secoes: [
+          {
+            titulo: "MAIS FUNÇÕES DO PERFIL",
+            botoes: [
+              { texto: "JSY", link: "#JSY" },
+              { texto: "JSY ANIME", link: "https://heylink.me/Jose-Status-Anime/" },
+              { texto: "JSY MUSICA", link: "#JSY-MUSICA" },
+              { texto: "GAMER FILME", link: "#GAMER-FILMES" }
+            ]
+          },
+          {
+            titulo: "JSY ANIME",
+            botoes: [
+              { texto: "Início", link: "https://j-s-an.github.io/anime/" },
+              { texto: "📅 Calendário Semanal", link: "https://j-s-an.github.io/anime/calendario.html" },
+              { texto: "🌀 Lançamentos", link: "https://j-s-an.github.io/anime/Lan%C3%A7amentos.html" },
+              { texto: "Animes em Breve", link: "https://j-s-an.github.io/anime/em-breve.html" },
+              { texto: "Lista de Animes", link: "https://j-s-an.github.io/anime/lista-anime.html" },
+              { texto: "👑 Pedido de Anime", link: "https://j-s-an.github.io/anime/Pedido-de-Anime.html" }
+            ]
+          },
+          {
+            titulo: "GRUPO OU CANAL DO JSY",
+            botoes: [
+              { texto: "DISCORD", link: "https://sites.google.com/view/jose-status-yt/discord" },
+              { texto: "WHATSAPP", link: "https://sites.google.com/view/jose-status-yt/whatsapp" },
+              { texto: "TELEGRAM", link: "https://sites.google.com/view/jose-status-yt/telegram" },
+              { texto: "GUILDED", link: "https://www.guilded.gg/i/2ODVJ9Nk" },
+              { texto: "ROBLOX", link: "https://www.roblox.com/pt/communities/15993883/JOSE-STATUS#!/about" },
+            ]
+          }
+        ]
+      },
+      "JSY-MUSICA": {
+        nome: "JSY MÚSICA",
+        foto: "https://j-s-yt.github.io/J-S-Y/jose.ico",
+        descricao: "Músicas, remixes e lançamentos!",
+        redes: [
+          { icone: "fab fa-instagram", link: "https://instagram.com/jose_status_yt" },
+          { icone: "fab fa-youtube", link: "https://youtube.com/@JOSESTATUSYT" },
+          { icone: "fab fa-x", link: "https://x.com/JOSE_STATUS_YT" },
+          { icone: "fab fa-tiktok", link: "https://www.tiktok.com/@jose_status_yt" }
+        ],
+        secoes: [
+          {
+            titulo: "MAIS FUNÇÕES DO PERFIL",
+            botoes: [
+              { texto: "JSY", link: "#JSY" },
+              { texto: "JSY ANIME", link: "#JSY-ANIME" },
+              { texto: "JSY MUSICA", link: "https://heylink.me/Jose-Status-Musica/" },
+              { texto: "GAMER FILME", link: "#GAMER-FILMES" }
+            ]
+          },
+          {
+            titulo: "JSY MÚSICA",
+            botoes: [
+              { texto: "INICIO", link: "https://sites.google.com/view/jose-status-musica/" },
+              { texto: "PUBLICAÇÃO", link: "https://sites.google.com/view/jose-status-musica/publicacao" },
+              { texto: "POPULAR NO TIKTOK", link: "https://sites.google.com/view/jose-status-musica/popular-no-tiktok" },
+              { texto: "CONTATO/PEDIR A MUSICA", link: "https://sites.google.com/view/jose-status-musica/contato" }
+            ]
+          },
+          {
+            titulo: "GRUPO OU CANAL DO JSY",
+            botoes: [
+              { texto: "DISCORD", link: "https://sites.google.com/view/jose-status-yt/discord" },
+              { texto: "WHATSAPP", link: "https://sites.google.com/view/jose-status-yt/whatsapp" },
+              { texto: "TELEGRAM", link: "https://sites.google.com/view/jose-status-yt/telegram" },
+              { texto: "GUILDED", link: "https://www.guilded.gg/i/2ODVJ9Nk" },
+              { texto: "ROBLOX", link: "https://www.roblox.com/pt/communities/15993883/JOSE-STATUS#!/about" },
+            ]
+          }
+        ]
+      },
+      "GAMER-FILMES": {
+        nome: "GAMER FILMES",
+        foto: "https://j-s-yt.github.io/J-S-Y/jose.ico",
+        descricao: "Filmes, jogos e cultura pop!",
+        redes: [
+          { icone: "fab fa-youtube", link: "https://www.youtube.com/@GAMERFILME" }
+        ],
+        secoes: [
+          {
+            titulo: "MAIS FUNÇÕES DO PERFIL",
+            botoes: [
+              { texto: "JSY", link: "#JSY" },
+              { texto: "JSY ANIME", link: "#JSY-ANIME" },
+              { texto: "JSY MUSICA", link: "#JSY-MUSICA" },
+              { texto: "GAMER FILME", link: "https://heylink.me/Gamer_Filme_Yt/" }
+            ]
+          },
+          {
+            titulo: "--------------------------------------",
+            botoes: [
+              { texto: "TODOS FILME NO CANAL GAMER FILME", link: "https://www.youtube.com/playlist?list=PLNUamMGk8gwXGZACVdh4Ybui3hLrCtID5" }
+            ]
+          }
+        ]
+      }
+    };
+
+    function carregarPerfil(hash) {
+      const perfilId = hash.replace("#", "") || "JSY";
+      const perfil = perfis[perfilId.toUpperCase()] || perfis["JSY"];
+
+      document.getElementById("perfil-nome").innerText = perfil.nome;
+      document.getElementById("perfil-img").src = perfil.foto;
+      document.getElementById("perfil-desc").innerText = perfil.descricao;
+
+      const redesDiv = document.getElementById("perfil-redes");
+      redesDiv.innerHTML = "";
+      perfil.redes.forEach(r => {
+        const a = document.createElement("a");
+        a.href = r.link;
+        a.target = "_blank";
+        a.innerHTML = `<i class="${r.icone}"></i>`;
+        redesDiv.appendChild(a);
       });
 
-      // Atualiza a hash na URL
-      window.location.hash = perfilList[index];
+      const conteudoDiv = document.getElementById("conteudo");
+      conteudoDiv.innerHTML = "";
+      perfil.secoes.forEach(secao => {
+        const sec = document.createElement("div");
+        sec.className = "sessao";
+        sec.innerHTML = `<h2>${secao.titulo}</h2>`;
+        secao.botoes.forEach(botao => {
+          const a = document.createElement("a");
+          a.href = botao.link;
+          a.className = "botao";
+          a.innerText = botao.texto;
+          sec.appendChild(a);
+        });
+        conteudoDiv.appendChild(sec);
+      });
     }
 
-    function updateProfileFromHash() {
-      const hash = window.location.hash.toUpperCase().replace('#', '');
-      if (perfilMap.hasOwnProperty(hash)) {
-        showProfile(perfilMap[hash]);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-        }, 10);
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', updateProfileFromHash);
-    window.addEventListener('hashchange', updateProfileFromHash);
+    window.addEventListener("hashchange", () => carregarPerfil(location.hash));
+    carregarPerfil(location.hash);
   </script>
 </body>
+
 </html>
