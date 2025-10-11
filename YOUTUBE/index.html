@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divulgação de Canais YouTube</title>
+    <meta name="description" content="Site para divulgação de canais do YouTube. Divulgue seu canal gratuitamente e descubra novos canais interessantes.">
+    <meta name="keywords" content="YouTube, divulgação, canais, inscritos, vídeos">
+    <meta name="author" content="José Status YT">
+    <style>
+        :root {
+            --primary-color: #ff0000;
+            --secondary-color: #282828;
+            --accent-color: #f1f1f1;
+            --text-color: #333;
+            --light-text: #fff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background-color: var(--secondary-color);
+            color: var(--light-text);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .channel-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .channel-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .channel-thumbnail {
+            width: 100%;
+            height: 180px;
+            background-color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-text);
+            font-size: 4rem;
+        }
+        
+        .channel-info {
+            padding: 1.5rem;
+        }
+        
+        .channel-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .channel-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .channel-link:hover {
+            background-color: #cc0000;
+        }
+        
+        .form-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #cc0000;
+        }
+        
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .rules {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .rules h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .rules ul {
+            margin-left: 1.5rem;
+        }
+        
+        .rules li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .credits {
+            text-align: center;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .credits h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .creator-channels {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .creator-channel {
+            text-align: center;
+            max-width: 250px;
+        }
+        
+        .ad-container {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .ad-container h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .ad-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .ad-channel {
+            text-align: center;
+        }
+        
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--light-text);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .message {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-message {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .channels-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .creator-channels {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">DivulgaYouTube</div>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link" data-page="home">Início</a></li>
+                <li><a href="#" class="nav-link" data-page="submit">Enviar Canal</a></li>
+                <li><a href="#" class="nav-link" data-page="credits">Créditos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Página Inicial -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1>Descubra Canais Incríveis do YouTube</h1>
+                <p>Divulgue seu canal gratuitamente e encontre novos criadores de conteúdo</p>
+            </div>
+            
+            <!-- Anúncio do dia -->
+            <div class="ad-container">
+                <h3>Inscreva-se no Canal do Dia</h3>
+                <div class="ad-content">
+                    <div class="ad-channel">
+                        <div class="channel-thumbnail">JS</div>
+                        <h4>José Status YT</h4>
+                        <p>Conteúdo variado sem blog</p>
+                        <a href="https://youtube.com/@josestatusyt" class="channel-link" target="_blank">Visitar Canal</a>
+                    </div>
+                </div>
+            </div>
+            
+            <h2>Canais em Destaque</h2>
+            <div class="channels-grid" id="channels-container">
+                <div class="loading-message">Carregando canais...</div>
+            </div>
+        </div>
+
+        <!-- Página de Envio de Canal -->
+        <div id="submit" class="page">
+            <div class="hero">
+                <h1>Divulgue Seu Canal no YouTube</h1>
+                <p>Preencha o formulário abaixo para enviar seu canal</p>
+            </div>
+            
+            <div class="rules">
+                <h3>Regras para Divulgação</h3>
+                <ul>
+                    <li>O canal deve ter conteúdo original</li>
+                    <li>Não são permitidos canais com conteúdo ofensivo ou ilegal</li>
+                    <li>O canal será revisado antes de ser publicado</li>
+                    <li>Cada usuário pode enviar apenas um canal</li>
+                </ul>
+            </div>
+            
+            <div class="form-container">
+                <div id="form-message" class="message"></div>
+                <form id="channel-form">
+                    <div class="form-group">
+                        <label for="channel-name">Nome do Canal *</label>
+                        <input type="text" id="channel-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="channel-url">URL do Canal *</label>
+                        <input type="text" id="channel-url" placeholder="Cole o link do seu canal aqui" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="channel-category">Categoria *</label>
+                        <select id="channel-category" required>
+                            <option value="">Selecione uma categoria</option>
+                            <option value="games">Games</option>
+                            <option value="musica">Música</option>
+                            <option value="educacao">Educação</option>
+                            <option value="entretenimento">Entretenimento</option>
+                            <option value="tecnologia">Tecnologia</option>
+                            <option value="vlogs">Vlogs</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="channel-description">Descrição do Canal *</label>
+                        <textarea id="channel-description" placeholder="Descreva seu canal em poucas palavras..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="submit-btn">
+                        <span id="submit-text">Enviar Canal</span>
+                        <div class="loading" id="submit-loading" style="display: none;"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Página de Créditos -->
+        <div id="credits" class="page">
+            <div class="hero">
+                <h1>Créditos</h1>
+                <p>Conheça o criador deste site e seus canais</p>
+            </div>
+            
+            <div class="credits">
+                <h2>Sobre o Criador</h2>
+                <p>Este site foi criado por José para ajudar criadores de conteúdo do YouTube a divulgarem seus canais e alcançarem mais público.</p>
+                
+                <div class="creator-channels">
+                    <div class="creator-channel">
+                        <div class="channel-thumbnail">JS</div>
+                        <h3>José Status YT</h3>
+                        <p>Canal focado em conteúdo variado sem blog</p>
+                        <a href="https://youtube.com/@josestatusyt" class="channel-link" target="_blank">Visitar Canal</a>
+                    </div>
+                    
+                    <div class="creator-channel">
+                        <div class="channel-thumbnail">GF</div>
+                        <h3>Gamer Filme</h3>
+                        <p>Focado em compilações de séries em filmes e jogos</p>
+                        <a href="https://youtube.com/@gamerfilme" class="channel-link" target="_blank">Visitar Canal</a>
+                    </div>
+                    
+                    <div class="creator-channel">
+                        <div class="channel-thumbnail">JL</div>
+                        <h3>JSY Lenta</h3>
+                        <p>Focado em legendas para todos os tipos de música</p>
+                        <a href="https://youtube.com/@jsylenta" class="channel-link" target="_blank">Visitar Canal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 DivulgaYouTube - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        // URL do seu Google Apps Script (JÁ CONFIGURADO)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzIbPXGwv2mUJKEsoXCwyH7cZ_BfE1J7r9AeI0bcU16cVtj8gtQsPPRhypBa8rkVQaXbg/exec';
+
+        // Navegação entre páginas
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = e.target.getAttribute('data-page');
+                
+                // Esconde todas as páginas
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Mostra a página selecionada
+                document.getElementById(pageId).classList.add('active');
+                
+                // Se for a página inicial, carrega os canais
+                if (pageId === 'home') {
+                    loadChannels();
+                }
+            });
+        });
+
+        // Função para carregar canais do Google Sheets
+        async function loadChannels() {
+            const container = document.getElementById('channels-container');
+            container.innerHTML = '<div class="loading-message">Carregando canais...</div>';
+            
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const channels = await response.json();
+                
+                if (channels.error) {
+                    throw new Error(channels.error);
+                }
+                
+                container.innerHTML = '';
+                
+                if (channels.length === 0) {
+                    container.innerHTML = '<p>Nenhum canal encontrado. Seja o primeiro a divulgar!</p>';
+                    return;
+                }
+                
+                channels.forEach(channel => {
+                    const channelCard = document.createElement('div');
+                    channelCard.className = 'channel-card';
+                    
+                    // Gera uma letra inicial para a miniatura
+                    const initial = channel.name.charAt(0);
+                    
+                    channelCard.innerHTML = `
+                        <div class="channel-thumbnail">${initial}</div>
+                        <div class="channel-info">
+                            <h3>${channel.name}</h3>
+                            <p><strong>Categoria:</strong> ${getCategoryName(channel.category)}</p>
+                            <p>${channel.description}</p>
+                            <a href="${channel.url}" class="channel-link" target="_blank">Visitar Canal</a>
+                        </div>
+                    `;
+                    
+                    container.appendChild(channelCard);
+                });
+                
+            } catch (error) {
+                console.error('Erro ao carregar canais:', error);
+                container.innerHTML = '<p>Erro ao carregar canais. Tente novamente mais tarde.</p>';
+            }
+        }
+
+        // Função para obter o nome da categoria
+        function getCategoryName(category) {
+            const categories = {
+                'games': 'Games',
+                'musica': 'Música',
+                'educacao': 'Educação',
+                'entretenimento': 'Entretenimento',
+                'tecnologia': 'Tecnologia',
+                'vlogs': 'Vlogs',
+                'outros': 'Outros'
+            };
+            
+            return categories[category] || 'Outros';
+        }
+
+        // Manipulação do formulário
+        document.getElementById('channel-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('channel-name').value;
+            const url = document.getElementById('channel-url').value;
+            const category = document.getElementById('channel-category').value;
+            const description = document.getElementById('channel-description').value;
+            const messageDiv = document.getElementById('form-message');
+            const submitBtn = document.getElementById('submit-btn');
+            const submitText = document.getElementById('submit-text');
+            const submitLoading = document.getElementById('submit-loading');
+            
+            // Mostrar loading
+            submitText.style.display = 'none';
+            submitLoading.style.display = 'inline-block';
+            submitBtn.disabled = true;
+            
+            try {
+                // Enviar dados para o Google Sheets
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: name,
+                        url: url,
+                        category: category,
+                        description: description
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Limpa o formulário
+                    document.getElementById('channel-form').reset();
+                    
+                    // Mostra mensagem de sucesso
+                    messageDiv.textContent = result.message;
+                    messageDiv.className = 'message success';
+                    messageDiv.style.display = 'block';
+                } else {
+                    throw new Error(result.message);
+                }
+                
+            } catch (error) {
+                console.error('Erro ao enviar canal:', error);
+                messageDiv.textContent = 'Erro ao enviar canal: ' + error.message;
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+            } finally {
+                // Esconder loading
+                submitText.style.display = 'inline';
+                submitLoading.style.display = 'none';
+                submitBtn.disabled = false;
+                
+                // Esconde a mensagem após 5 segundos
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 5000);
+            }
+        });
+
+        // Rotação de anúncios dos canais do criador
+        function rotateAds() {
+            const adChannels = [
+                {
+                    name: "José Status YT",
+                    url: "https://youtube.com/@josestatusyt",
+                    description: "Conteúdo variado sem blog"
+                },
+                {
+                    name: "Gamer Filme",
+                    url: "https://youtube.com/@gamerfilme",
+                    description: "Séries compiladas em filmes e jogos"
+                },
+                {
+                    name: "JSY Lenta",
+                    url: "https://youtube.com/@jsylenta",
+                    description: "Legendas para todos os tipos de música"
+                }
+            ];
+            
+            let currentAdIndex = 0;
+            
+            // Muda o anúncio a cada 10 segundos (para demonstração)
+            setInterval(() => {
+                const adContainer = document.querySelector('.ad-channel');
+                if (adContainer) {
+                    const channel = adChannels[currentAdIndex];
+                    const initial = channel.name.charAt(0);
+                    
+                    adContainer.innerHTML = `
+                        <div class="channel-thumbnail">${initial}</div>
+                        <h4>${channel.name}</h4>
+                        <p>${channel.description}</p>
+                        <a href="${channel.url}" class="channel-link" target="_blank">Visitar Canal</a>
+                    `;
+                    
+                    currentAdIndex = (currentAdIndex + 1) % adChannels.length;
+                }
+            }, 10000);
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChannels();
+            rotateAds();
+        });
+    </script>
+</body>
+</html>
